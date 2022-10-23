@@ -5,55 +5,55 @@ import axios from "axios";
 function GetCharacterData() {
     const [characters, setCharacters] = useState([]);
 
-    const swapi_url = "https://swapi.dev/api/people";
+    const swapi_url = "https://swapi.dev/api/people/?page=1";
 
     const getPlanet = async (planet_url) => {
-        await axios.get(planet_url).then((planet) => {
-            return planet.data.name;
-        });
+        const planet = await axios.get(planet_url);
+        return planet.data.name;
     };
 
     const getSpecies = async (species_url) => {
-        await axios.get(species_url).then((species) => {
-            species = species.data.name;
-            !species ? (species = "Human") : (species = species);
-            //console.log(species);
-            return species;
-        });
+        let species = await axios.get(species_url);
+        !species.data.name
+            ? (species = "Human")
+            : (species = species.data.name);
+        return species;
     };
 
     useEffect(() => {
         const getCharacterData = async () => {
-            await axios.get(swapi_url).then((chars) => {
-                chars = chars.data.results;
-                chars.forEach(async (char) => {
-                    console.log(char.homeworld);
-                    char.homeWorld = await getPlanet(char.homeworld);
-                    char.species = await getSpecies(char.species);
-                    console.log(char);
-                });
-                setCharacters(chars);
-            });
+            const response = await axios.get(swapi_url);
+            const chars = response.data.results;
+
+            for (let i = 0; i < chars.length; i++) {
+                chars[i].planet = await getPlanet(chars[i].homeworld);
+                chars[i].species = await getSpecies(chars[i].species);
+            }
+            // for (let char of chars) {
+            //     char.planet = await getPlanet(char.homeworld);
+            //     char.species = await getSpecies(char.species);
+            // }
+            console.log(chars);
+            setCharacters(chars);
         };
         getCharacterData();
     }, []);
 
     return (
-        <div>
-            {!characters ? (
-                <h2 className="loading">Loading Data</h2>
-            ) : (
-                characters.map((character, id) => {
-                    return (
-                        <div key={id}>
-                            <p>{character.name}</p>
-                            <p>{character.homeWorld}</p>
-                            <p>{character.species}</p>
-                        </div>
-                    );
-                })
-            )}
-        </div>
+        <>
+            {characters.map((character, id) => {
+                return (
+                    <tr key={id}>
+                        <td>{character.name}</td>
+                        <td>{character.birth_year}</td>
+                        <td>{character.height} cm</td>
+                        <td>{character.mass} kg</td>
+                        <td>{character.planet}</td>
+                        <td>{character.species}</td>
+                    </tr>
+                );
+            })}
+        </>
     );
 }
 
