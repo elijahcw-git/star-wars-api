@@ -4,6 +4,8 @@
 
 This application utilizes React.js, React Bootstrap, asynchronous Javascript, the axios library, and the Star Wars API.
 
+It can be accessed [here]('https://star-wars-api-ecw.herokuapp.com/')
+
 ![Star Wars Api](./src/components/Images/swapiTN.png)
 
 ## Summary
