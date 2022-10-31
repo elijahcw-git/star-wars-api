@@ -31,7 +31,6 @@ function App() {
     };
 
     useEffect(() => {
-        setIsLoading(true);
         const getCharacterData = async () => {
             const response = await axios.get(url);
             setPreviousPageUrl(response.data.previous);
@@ -71,6 +70,7 @@ function App() {
                 setPreviousPageUrl={setPreviousPageUrl}
                 nextPageUrl={nextPageUrl}
                 setNextPageUrl={setNextPageUrl}
+                setIsLoading={setIsLoading}
                 isLoading={isLoading}
                 setUrl={setUrl}
                 url={url}

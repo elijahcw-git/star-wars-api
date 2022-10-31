@@ -17,13 +17,19 @@ const Pagination = ({
     const previousPage = () => {
         if (previousPageUrl) {
             setUrl(previousPageUrl);
-            setCurrentPageNumber(currentPageNumber - 1);
+            setCurrentPageNumber((prev) => {
+                return prev - 1;
+            });
+            setIsLoading(true);
         }
     };
     const nextPage = () => {
         if (nextPageUrl && currentPageNumber < 9) {
             setUrl(nextPageUrl);
-            setCurrentPageNumber(currentPageNumber + 1);
+            setCurrentPageNumber((prev) => {
+                return prev + 1;
+            });
+            setIsLoading(true);
         }
     };
 
@@ -41,8 +47,8 @@ const Pagination = ({
         <Button
             size="lg"
             variant="light"
-            disabled={isLoading}
             onClick={nextPage}
+            disabled={isLoading}
         >
             Next
         </Button>
