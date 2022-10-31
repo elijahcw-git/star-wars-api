@@ -1,11 +1,17 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
+import { Table } from "react-bootstrap";
 
-const Table = ({ characters }) => {
-    // console.log(characters);
+const CharacterTable = ({ characters }) => {
     return (
         <div>
-            <table>
+            <Table
+                striped
+                bordered
+                hover
+                variant="dark"
+                className="character-table"
+            >
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -30,9 +36,9 @@ const Table = ({ characters }) => {
                         );
                     })}
                 </tbody>
-            </table>
+            </Table>
         </div>
     );
 };
 
-export default Table;
+export default CharacterTable;

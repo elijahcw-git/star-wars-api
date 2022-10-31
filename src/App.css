@@ -1,0 +1,17 @@
+* {
+    background-color: black;
+}
+
+.App {
+    text-align: center;
+    width: 85%;
+    margin: auto;
+}
+
+img {
+    color: yellow;
+    margin: auto;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+}

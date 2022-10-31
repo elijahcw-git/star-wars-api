@@ -1,19 +1,20 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import GetCharacterData from "./GetCharacterData";
-import Search from "./SearchBar";
-import Table from "./Table";
-import Pagination from "./Pagination";
+import SearchBar from "./components/SearchBar/SearchBar";
+import CharacterTable from "./components/CharacterTable/CharacterTable";
+import Pagination from "./components/Pagination/Pagination";
+import "bootstrap/dist/css/bootstrap.min.css";
+import image from "./components/Images/titleImage.png";
 
 function App() {
     const swapi_url = `https://swapi.dev/api/people/?page=1`;
-
     const [characters, setCharacters] = useState([]);
     const [url, setUrl] = useState(swapi_url);
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [previousPageUrl, setPreviousPageUrl] = useState("");
     const [nextPageUrl, setNextPageUrl] = useState("");
+    const [search, setSearch] = useState("");
 
     const getPlanet = async (planet_url) => {
         const planet = await axios.get(planet_url);
@@ -46,13 +47,19 @@ function App() {
 
     return (
         <div className="App">
-            <h1>Star Wars API</h1>
-            <Search
+            <img className="title-image" src={image} alt="title image"></img>
+            <SearchBar
                 url={url}
                 setUrl={setUrl}
                 currentPageNumber={currentPageNumber}
+                setCurrentPageNumber={setCurrentPageNumber}
+                search={search}
+                setSearch={setSearch}
             />
-            <Table characters={characters} setCharacters={setCharacters} />
+            <CharacterTable
+                characters={characters}
+                setCharacters={setCharacters}
+            />
             <Pagination
                 characters={characters}
                 currentPageNumber={currentPageNumber}
