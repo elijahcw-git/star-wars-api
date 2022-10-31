@@ -8,6 +8,8 @@ const Pagination = ({
     setUrl,
     nextPageUrl,
     previousPageUrl,
+    isLoading,
+    setIsLoading,
 }) => {
     const hasPreviousPage = currentPageNumber > 1;
     const hasNextPage = characters.length >= 10;
@@ -20,19 +22,28 @@ const Pagination = ({
     };
     const nextPage = () => {
         if (nextPageUrl && currentPageNumber < 9) {
-            console.log(nextPageUrl);
             setUrl(nextPageUrl);
             setCurrentPageNumber(currentPageNumber + 1);
         }
     };
 
     const previousButton = hasPreviousPage && (
-        <Button size="lg" variant="light" onClick={previousPage}>
+        <Button
+            size="lg"
+            variant="light"
+            onClick={previousPage}
+            disabled={isLoading}
+        >
             Prev
         </Button>
     );
     const nextButton = hasNextPage && (
-        <Button size="lg" variant="light" onClick={nextPage}>
+        <Button
+            size="lg"
+            variant="light"
+            disabled={isLoading}
+            onClick={nextPage}
+        >
             Next
         </Button>
     );

@@ -15,6 +15,7 @@ function App() {
     const [previousPageUrl, setPreviousPageUrl] = useState("");
     const [nextPageUrl, setNextPageUrl] = useState("");
     const [search, setSearch] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const getPlanet = async (planet_url) => {
         const planet = await axios.get(planet_url);
@@ -30,6 +31,7 @@ function App() {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         const getCharacterData = async () => {
             const response = await axios.get(url);
             setPreviousPageUrl(response.data.previous);
@@ -42,6 +44,7 @@ function App() {
             setCharacters(chars);
             return chars;
         };
+        setIsLoading(false);
         getCharacterData();
     }, [url]);
 
@@ -68,6 +71,7 @@ function App() {
                 setPreviousPageUrl={setPreviousPageUrl}
                 nextPageUrl={nextPageUrl}
                 setNextPageUrl={setNextPageUrl}
+                isLoading={isLoading}
                 setUrl={setUrl}
                 url={url}
             />
