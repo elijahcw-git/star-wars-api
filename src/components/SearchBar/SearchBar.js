@@ -2,13 +2,14 @@ import { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./SearchBar.css";
 
-const SearchBar = ({ setUrl, setCurrentPageNumber }) => {
+const SearchBar = ({ setUrl, setCurrentPageNumber, setIsLoading }) => {
     const [inputValue, setInputValue] = useState("");
     const searchInput = useRef();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             setUrl(
                 `https://swapi.dev/api/people/?search=${searchInput.current.value}`
             );
@@ -22,6 +23,7 @@ const SearchBar = ({ setUrl, setCurrentPageNumber }) => {
     const handleReset = (e) => {
         e.preventDefault();
         setUrl("https://swapi.dev/api/people/?page=1");
+        setIsLoading(true);
         setInputValue("");
         setCurrentPageNumber(1);
     };

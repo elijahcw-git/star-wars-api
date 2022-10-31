@@ -41,9 +41,9 @@ function App() {
                 char.species = await getSpecies(char.species);
             }
             setCharacters(chars);
+            setIsLoading(false);
             return chars;
         };
-        setIsLoading(false);
         getCharacterData();
     }, [url]);
 
@@ -57,6 +57,7 @@ function App() {
                 setCurrentPageNumber={setCurrentPageNumber}
                 search={search}
                 setSearch={setSearch}
+                setIsLoading={setIsLoading}
             />
             <CharacterTable
                 characters={characters}
